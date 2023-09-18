@@ -1,0 +1,209 @@
+[model]
+General_conditions = "Default"
+nx = 7  # Discretisation points in x
+ny = 7  # Discretisation points in y
+nstack = 3  # Simulated repeat units nstack = 2*(number of layers) - 1
+nRC = 2  # Number of R-C pairs in simulation
+Module = "Yes"
+Module_4T = "Yes"
+Electrical_type = "ECN_Plain"
+ECN_method = "Neo"  # Model structure: "Neo"/"General"
+Model = "EandT"  # Model type: "EandT"/"E"/"T" (Electrical and Thermal/Electrical only/Thermal only)
+E-T_coupling = "two-way"  # Coupling way of electrical-thermal model: "two-way"/"NA"
+Heat_gen = "Yes"  # Heat generation consideration: "Yes"/"No"
+Entropy = "Yes"  # Entropic heat consideration: "Yes"/"No"
+Ageing = "No"  # Ageing: "Yes"/"No"
+BoL_ageing = "No"  # Beginning of life ageing model: "Yes"/"No"
+CC = "Yes"  # Current collector resistance consideration: "Yes"/"No"
+R0_minus_Rcc = "No"  # Subtract current collector resistance from R0: "Yes"/"No"
+
+[runtime_options]
+Count = "Yes"  # Calculate run time each section: "Yes"/"No"
+Echeck = "No"  # Whole model energy conservation check:  "Yes"/"No"
+Get_unnecessary_info = "No"  # Other info calculation, energy density, bulk properties etc.: "Yes"/"No"
+Q_charact_separate = "No"  # Capacity characterisation: "Yes"/"No"
+TemBC_vectorCN_check = "No"  # Check Dirichlet temperature BC for temperature-constrained BC: "Yes"/"No"
+TemBC_smoothing = "No"  # Temperature BC smoothing: "Yes"/"No"
+CheckBC_4T = "No"  # Check thermal model BC right or not: "Yes"/"No". This only applies when Tem BC is used, check Dirichlet Temperature BC. This only applies for Temperature constrained BC
+Smoothing_stiffness = 1
+
+[operating_conditions]
+C_rate = 1  # Define simulation current
+I_ext_fpath = ""  # Use time-varying current: "/path/to/file/containing/current/data" / ""
+dt = 1  # Timestep (s)
+SoC_initial = 1  # State of charge initial condition
+Current_direction = 1  # 1/-1 for discharge/charge
+IV_mode = 0  # Mode of operation: 0/1 for constant current/voltage
+V_highlimit_single = 4.2  # Charge cut-off voltage
+V_lowlimit_single = 2.7  # Discharge cut-off voltage
+Rcc = 1.3270e-2  # Current collector resistance (used if R0_minus_Rcc = "Yes")
+Rcap = 5e-2  # Cylindrical cell cap resistance
+Tab_surface_scheme = "TabCoolAgeing"  # Tab surface cooling scheme: AllConv/AllTem/TabConv_SurTem/TabTem_SurConv/SurfaceCooling/TabCooling/UserDefine     "TabCoolAgeing"/"TwoSurfaceCoolAgeing"
+Tab_thermal_path = "No"  #"Yes/No" thermal model tab between jellyroll and can BC. if thermal tabs are considered, add heat transfer by tab #cylindrical & prismatic only?
+h_cooling = 60  # heat transfer coefficient for the cell stack
+T_cooling = 298.15  # Cooling temperature for the cell stack
+T_initial = 298.15  # Initial temperature
+T_fixed = 298.15  # Temperature when no electrical-thermal coupling
+
+[cell]
+Form_factor = "Pouch"  # Cell form factor "Pouch"/"Cylindrical"/"Prismatic"
+Eparam = "Pouch_Cell1"  # Cell name
+Cells_name = ["cell_1"]
+
+[cell.geometry]
+nstack_real = 50  # Number of repeat units in real cell
+delta_an_real = 3.8e-5  # thickness, m; an: anode
+delta_ca_real = 2.9e-5  # ca: cathode
+delta_sep_real = 2.4e-5  # sep: separator
+delta_Al_real = 2.1e-5  # Al: aluminium
+delta_Cu_real = 2.1e-5  # Cu: copper
+delta_el_real = 9.1e-5  # el: electrode pair
+Lx_electrodes_real = 1.4e-1  # electrode x dimension
+Ly_electrodes_real = 4.2e-2  # electrode y dimension
+Lx_cell = 1.4e-1  # cell x dimension
+Ly_cell = 4.2e-2  # cell y dimension
+Casing_delta_polyamide = 2.5e-5
+Casing_delta_polypropylene = 4e-5
+Casing_delta_Al = 4e-5
+
+[cell.electrical]
+Capacity_rated0 = 1.8e4  # Cell capacity, Ah
+Nominal_voltage = 3.696
+Energy = 6.6528e4
+Conductivity_Al = 3.5e7  # conductivity, S/m^3
+Conductivity_Cu = 6e7
+
+[cell.physical]
+Density_an = 1.555e3  # density, kg/m^3
+Density_ca = 2.895e3
+Density_sep = 1.017e3
+Density_Al = 2.702e3
+Density_Cu = 8.933e3
+Casing_density_polyamide = 1.15e3  # only relevant if casing is on
+Casing_density_polypropylene = 9.2e2
+Casing_density_Al = 2.702e3
+
+[cell.thermal]
+Specific_heat_capacity_an = 1.437e3  # specific heat capacity, J/kg/K
+Specific_heat_capacity_ca = 1.27e3
+Specific_heat_capacity_sep = 1.978e3
+Specific_heat_capacity_Al = 9.03e2
+Specific_heat_capacity_Cu = 3.85e2
+Conductivity_an = 1.58  # thermal conductivity, W/m/K
+Conductivity_ca = 1.04
+Conductivity_sep = 3.4e-1
+Conductivity_Al = 2.38e2
+Conductivity_Cu = 3.98e2
+
+[cell.LUTs]
+interp = "Interp"  # LUT interpolation or fitting function: "Fitting"/"Interp"
+interp_order = "linear"  # LUT interpolation type: "Linear"/"Cubic"
+
+[tab.geometry]
+A = 5.775e-7
+L = 1.1e-2
+
+[tab.physical]
+Density = 2.702e3
+
+[tab.thermal]
+Conductivity = 2.38e2
+Specific_heat_capacity = 9.03e2
+
+[membrane.geometry]
+delta = 7e-5
+
+[membrane.thermal]
+Conductivity = 3.4e-1
+
+[module]
+General_conditions_module = "Default"
+Modules_name = ["module_1"]
+Modules_4T_name = ["module_1_4T"]
+Current_direction_module = 1
+IV_mode_module = 0
+V_ext_module = 4.2
+SoC_initial_module = 1
+C_rate_module = 1
+BC_module = "Pouch_weld_tab"
+BC_module_4T = "Pouch_weld_tab"
+BC_ribbon = "Single_Tab_Cooling"  # "Single_Tab_Cooling/AllConv"
+Cells_num_module = 1
+Parts_num_module = 5  # number of thermal parts in Module
+
+[solver]
+Linsolver_E = "Sparse"  # Solver for electrical model: "Sparse"/"General"
+Linsolver_T = "Sparse"  # Solver for thermal model: "Sparse"/"General"
+Thermal_solver = "CN"  # Thermal solver type (implicit/explicit): "CN"/"Explicit"
+Linsolver_E_module = "Sparse"
+
+[postprocessing]
+PostProcessor = "Yes"  # Run post-processor at cell level: "Yes"/"No"
+PostProcess_cell_id = "cell_1"  # Postprocess cell_1 by default
+PostProcessor_module = "Yes"  # Run post-processor at module level: "Yes"/"No"
+PostProcess_module_id = "module_1"  # Postprocess module_1 by default
+Visualisation_method = "mayavi"  # Visualisation method type: "mayavi"/"plotly"
+Temp_levels = 40  # Number of divisions on colour bar
+Temp_min = 15.0  # Minimum temperature on colour bar
+Temp_max = 35.0  # Maximum temperature on colour bar
+PlotLUT = "No"  # Plotting LUTs: "Yes"/"No"
+PlotNode = "No"  # Plot nodes in figure: "Yes"/"No"
+Fig1to9 = "Yes"  # Plot figures 1 to 9:  "Yes"/"No"
+PopFig_or_SaveGIF_instant = "No"
+PopFig_or_SaveGIF_replay = "GIF"
+Plot_type_preprocess = "instant"
+Plot_type_postprocess = "reply"
+GIFdownsample_num = 1
+
+[postprocessing.mayavi]
+Show_cell_num = "No"  # Show cell number in mayavi plot: "Yes"/"No"
+Cells_Xinterval_module = 0.05  # spatial locations in a module for cells
+Cells_Yinterval_module = 0.0
+Cells_Zinterval_module = 0.0
+
+[tab_weld.geometry]
+# Row 0: Position of weld on cell edge
+# Row 1: Position of weld on cell centre
+# Row 2: Position of tab on cell edge
+# Row 3: Position of tab on cell centre
+# Column 0: X-direction: distance in z-direction
+# Column 1: Y-direction: distance in x-direction.
+# Column 2: Z-direction: distance in y-direction.
+Cells_XYZ_module = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
+
+[tab_weld.weld]
+welding_tech = "3-point welding"  # 1-point welding / 3-point welding
+weld_n = 3  # number of welds on a tab
+nonweld_n = 4  # number of non-welds on a tab
+nonweld_tab_lambda = 0  # thermal conductivity between two adjecent welds
+overlap_weld_tab = 3e-3
+
+[tab_weld.weld.geometry]
+L1 = 6e-3  # (part closer to cell) length in x
+W1 = 5e-3  # (all parts) length in y non-welded area
+W2 = 7.5e-3  # (all parts) length in y (longer than W1) non-welded area
+W3 = 1e-2  # (all parts)  length in y (longer than W1 and W2) non-welded area
+T1_pos = 5.4e-4  # (part closer to cell edge) length in z
+T1_neg = 6.9e-4  # (part closer to cell centre) length in z -> growing inside
+offset_y = 9.05318e-3
+
+[tab_weld.weld.thermal]
+lambda_pos = 2.38e2  # pos: positive weld
+lambda_neg = 3.98e2  # neg: negative weld
+
+[tab_weld.tab.geometry]
+L1 = 3.3e-2  # (part away from cell) length in x
+T1 = 4e-4  # (part away from cell) length in z
+cell_tab_L1 = 7e-3
+nx = 2  # number of meshed tab nodes in length direction - 2 suggested
+ny = 7  # number of meshed tab nodes in width direction - dependent on weld meshing
+nz = 2  # number of meshed tab nodes in thickness direction - 2 suggested
+#tab_W1 = 55e-3
+
+[tab_weld.tab.thermal]
+lambda_pos = 2.38e2  # pos: postive tab
+lambda_neg = 2.38e2  # neg: negative tab
+BC = "AllConv"  # cooling scheme for tab surface ONLY  : AllConv/OneSurfaceTabCooling/TwoSurfaceTabCooling
+T_cooling = 293.15  # cooling temperature for tab surface ONLY
+h = 3000  # heat tranfer coefficient for tab surface ONLY
+h_weldline = 0.0

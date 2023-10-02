@@ -450,6 +450,9 @@ def run() -> None:
                 for item in ip.status_Cells_name:  #i: cell_1,cell_2...   loop for all cells
                     cell_i = globals()[item]
                     cell_i.U_pndiff_plot[step]=cell_i.U3[cell_i.node_positive_0ind[0]]-cell_i.U3[cell_i.node_negative_0ind[0]]    #for plotting voltage difference between positive and negative
+                    # CC-CV mode
+                    if cell_i.U_pndiff_plot[step] >= cell_i.V_highlimit_single and ip.status_IVmode==0 and cell_i.status_CC_CV==1: # test if cut-off voltage reached
+                        ip.status_IVmode=1 # enable CV mode
                     cell_i.I0_record[step]=cell_i.U3[-1]
                     cell_i.V_record[:,step]=cell_i.U3[:cell_i.ntotal].reshape(-1)
                     cell_i.I_ele_record[:,step]=cell_i.U3[cell_i.ntotal:(cell_i.ntotal+cell_i.nECN)].reshape(-1)
@@ -576,8 +579,8 @@ def run() -> None:
                     print('----------------------------------------')
             ############################################################################judge discharge/charge limit
             if ip.status_Module == 'No':
-                if step==cell_1.nt:
-                    break                                           #if up to the given nt, end: break the cycle loop and cycles loop;   this is also in the break in cycles loop
+                if step==cell_1.nt:  #if up to the given nt, end: break the cycle loop and cycles loop;   this is also in the break in cycles loop
+                    break 
             elif ip.status_Module == 'Yes':
                 if step==module_1.nt:
                     break                                           #if up to the given nt, end: break the cycle loop and cycles loop;   this is also in the break in cycles loop

@@ -1427,13 +1427,10 @@ class Core(Form_Factor, Read_LUTs):
             if hasattr(self,'Table_I_ext'):   #if current is already loaded from external file
                 self.I_ext=self.Table_I_ext[step]                                                                      
             #---------------CC-CV mode
-    #        CV_step=int(self.nt/2)                     #here to set when to turn CV mode
-    #        if step <= CV_step:
-    #            self.status_IVmode=0
-    #            self.I_ext = self.status_discharge * self.Capacity_rated0/3600*self.C_rate                  #for discharge, status_discharge=1; for charge, status_discharge=-1
-    #        if step > CV_step:
-    #            self.status_IVmode=1
-    #            self.V_ext = self.U_pndiff_plot[CV_step]     #here to set CV voltage
+            if self.status_IVmode==0:
+                self.I_ext = self.status_discharge * self.Capacity_rated0/3600*self.C_rate                  #for discharge, status_discharge=1; for charge, status_discharge=-1
+            elif self.status_IVmode==1:
+                self.V_ext = self.V_highlimit_single
         #=============================== with PID control ================================
     #########################################################   
     ###########       function for heat gen       ###########

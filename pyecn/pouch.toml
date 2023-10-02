@@ -4,8 +4,8 @@ nx = 7  # Discretisation points in x
 ny = 7  # Discretisation points in y
 nstack = 3  # Simulated repeat units nstack = 2*(number of layers) - 1
 nRC = 2  # Number of R-C pairs in simulation
-Module = "Yes"
-Module_4T = "Yes"
+Module = "No"
+Module_4T = "No"
 Electrical_type = "ECN_Plain"
 ECN_method = "Neo"  # Model structure: "Neo"/"General"
 Model = "EandT"  # Model type: "EandT"/"E"/"T" (Electrical and Thermal/Electrical only/Thermal only)
@@ -31,10 +31,11 @@ Smoothing_stiffness = 1
 C_rate = 1  # Define simulation current
 I_ext_fpath = ""  # Use time-varying current: "/path/to/file/containing/current/data" / ""
 dt = 1  # Timestep (s)
-SoC_initial = 1  # State of charge initial condition
-Current_direction = 1  # 1/-1 for discharge/charge
+SoC_initial = 0.1  # State of charge initial condition
+Current_direction = -1  # 1/-1 for discharge/charge
+CC-CV_Mode = 1
 IV_mode = 0  # Mode of operation: 0/1 for constant current/voltage
-V_highlimit_single = 4.2  # Charge cut-off voltage
+V_highlimit_single = 3.6  # Charge cut-off voltage
 V_lowlimit_single = 2.7  # Discharge cut-off voltage
 Rcc = 1.3270e-2  # Current collector resistance (used if R0_minus_Rcc = "Yes")
 Rcap = 5e-2  # Cylindrical cell cap resistance

@@ -579,7 +579,7 @@ def run() -> None:
                     print('----------------------------------------')
             ############################################################################judge discharge/charge limit
             if ip.status_Module == 'No':
-                if step==cell_1.nt:  #if up to the given nt, end: break the cycle loop and cycles loop;   this is also in the break in cycles loop
+                if step==cell_1.nt or ((cell_i.U_pndiff_plot[step] >= cell_i.V_highlimit_single or cell_i.U_pndiff_plot[step] <= cell_i.V_lowlimit_single)  and cell_i.status_CC_CV==0):  #if up to the given nt, end: break the cycle loop and cycles loop;   this is also in the break in cycles loop
                     break 
             elif ip.status_Module == 'Yes':
                 if step==module_1.nt:

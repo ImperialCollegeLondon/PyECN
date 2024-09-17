@@ -1,3 +1,6 @@
+| :exclamation: This repository is no longer actively developed or maintained.  :exclamation: |
+|-----------------------------------------|
+
 # PyECN
 
 PyECN is a python-based equivalent circuit network (ECN) framework for modelling lithium-ion batteries.
